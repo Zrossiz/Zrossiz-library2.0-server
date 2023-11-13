@@ -9,6 +9,7 @@ const BookSchema = new Schema(
     fileCover: { type: String },
     fileBook: { type: String, required: true },
     views: { type: Number, default: 0 },
+    createdBy: { type: String, required: true },
   },
   {
     timestamps: true,

@@ -35,10 +35,29 @@ class BookController {
     }
   }
 
-  async updateBook() {}
+  async updateBook(req, res, next) {
+    try {
+      const bookId = req.params.id;
+      const { email } = req.cookies;
+      const data = {
+        title: req.body.title,
+        description: req.body.description,
+        author: req.body.author,
+        rating: req.body.rating,
+        fileCover: req.body.fileCover,
+        fileBook: req?.file?.originalname,
+        createdBy: email,
+      };
+      const updatedBook = await bookService.update(bookId, email, data);
+      res.json({ message: "Книга успешно обновлена" });
+    } catch (err) {
+      next(err);
+    }
+  }
 
   async createBook(req, res, next) {
     try {
+      const { email } = req.cookies;
       const data = new BookModel({
         title: req.body.title,
         description: req.body.description,
@@ -46,6 +65,7 @@ class BookController {
         rating: req.body.rating,
         fileCover: req.body.fileCover,
         fileBook: req.file.originalname,
+        createdBy: email,
       });
       const newBook = await data.save();
       return res.json(newBook);
@@ -54,7 +74,18 @@ class BookController {
     }
   }
 
-  async deleteBook() {}
+  async deleteBook(req, res, next) {
+    try {
+      const bookId = req.params.id;
+      const { email } = req.cookies;
+      const deletedBook = bookService.delete(bookId, email);
+      res.json({
+        message: "Книга успешно удалена",
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 export default new BookController();

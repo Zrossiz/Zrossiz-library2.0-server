@@ -21,6 +21,10 @@ class UserController {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
       });
+      res.cookie("email", email, {
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+      });
       return res.json(userData);
     } catch (err) {
       next(err);
@@ -38,6 +42,10 @@ class UserController {
       const { email, password } = req.body;
       const userData = await userService.login(email, password);
       res.cookie("refreshToken", userData.refreshToken, {
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+      });
+      res.cookie("email", email, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
       });

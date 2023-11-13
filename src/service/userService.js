@@ -6,7 +6,6 @@ import UserDto from "../dtos/userDto.js";
 import mailService from "./mailService.js";
 import tokenService from "./tokenService.js";
 import ApiError from "../error/apiError.js";
-import tokenModel from "../models/tokenModel.js";
 
 class UserService {
   async registration(email, password, userName) {
