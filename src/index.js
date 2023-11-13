@@ -17,6 +17,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(cors());
+app.use("/upload", express.static("src/upload"));
 app.use("/api", router);
 app.use(errorMiddleware);
 

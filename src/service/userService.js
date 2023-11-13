@@ -16,7 +16,6 @@ class UserService {
         `Пользователь с почтовым адресом ${email} уже существует`
       );
     }
-    console.log(password);
     const hashPassword = await bcrypt.hash(password, 4);
     const activationLink = uuidv4();
     const user = await UserModel.create({
