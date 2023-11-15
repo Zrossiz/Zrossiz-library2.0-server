@@ -5,6 +5,7 @@ const CommentSchema = new Schema(
     userId: { type: Schema.Types.ObjectId, ref: "User" },
     bookId: { type: Schema.Types.ObjectId, ref: "Book" },
     rating: { type: Number, default: 0, required: true },
+    title: { type: String, required: true },
     description: { type: String },
   },
   {

@@ -6,7 +6,10 @@ class BookController {
   async getAll(req, res, next) {
     try {
       const books = await BookModel.find();
-      res.status(200).json(books);
+      res.status(200).json({
+        length: books.length,
+        data: { ...books },
+      });
     } catch (err) {
       next(err);
     }
@@ -29,7 +32,10 @@ class BookController {
       }
       const searchRegex = new RegExp(`${req.body.title}`, "i");
       const searchResults = await bookService.search(searchRegex);
-      return res.json(searchResults);
+      return res.json({
+        length: searchResults.length,
+        data: { ...searchResults },
+      });
     } catch (err) {
       next(err);
     }
@@ -49,7 +55,10 @@ class BookController {
         createdBy: email,
       };
       const updatedBook = await bookService.update(bookId, email, data);
-      res.json({ message: "Книга успешно обновлена" });
+      res.json({
+        message: "Книга успешно обновлена",
+        book: { ...updatedBook },
+      });
     } catch (err) {
       next(err);
     }
@@ -68,7 +77,10 @@ class BookController {
         createdBy: email,
       });
       const newBook = await data.save();
-      return res.json(newBook);
+      return res.json({
+        message: "Книга успешно создана",
+        book: { ...newBook },
+      });
     } catch (err) {
       next(err);
     }
@@ -81,6 +93,7 @@ class BookController {
       const deletedBook = bookService.delete(bookId, email);
       res.json({
         message: "Книга успешно удалена",
+        book: { ...deletedBook },
       });
     } catch (err) {
       next(err);

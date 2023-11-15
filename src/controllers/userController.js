@@ -114,7 +114,7 @@ class UserController {
         avatarUrl,
         role
       );
-      return res.json({ message: "Пользователь успешно обновлен" });
+      return res.json(userData);
     } catch (err) {
       next(err);
     }
