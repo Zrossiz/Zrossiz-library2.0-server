@@ -2,6 +2,7 @@ import BookModel from "../models/bookModel.js";
 import ApiError from "../error/apiError.js";
 
 class BookService {
+  
   async getOne(bookId) {
     let book;
     const bookQuery = await BookModel.findOneAndUpdate(
@@ -25,7 +26,8 @@ class BookService {
 
   async update(bookId, email, data) {
     const book = await BookModel.findById(bookId);
-    if (book.email != email) {
+
+    if (book.createdBy != email) {
       throw ApiError.BadRequest(
         "Вы можете удалять и обновлять только созданные вами книги"
       );
@@ -35,13 +37,13 @@ class BookService {
         delete data[i];
       }
     }
-    await BookModel.updateOne(
+    const updatedBook = await BookModel.updateOne(
       {
         _id: bookId,
       },
       data
     );
-    return data;
+    return updatedBook;
   }
 
   async delete(bookId, email) {
@@ -51,7 +53,8 @@ class BookService {
         "Вы можете удалять и обновлять только созданные вами книги"
       );
     }
-    book.deleteOne();
+    const deletedBook = await book.deleteOne();
+    return book;
   }
 
   async search(searchRegex) {

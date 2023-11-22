@@ -8,7 +8,7 @@ class BookController {
       const books = await BookModel.find();
       res.status(200).json({
         length: books.length,
-        data: { ...books },
+        data: books,
       });
     } catch (err) {
       next(err);
@@ -57,7 +57,6 @@ class BookController {
       const updatedBook = await bookService.update(bookId, email, data);
       res.json({
         message: "Книга успешно обновлена",
-        book: { ...updatedBook },
       });
     } catch (err) {
       next(err);
@@ -79,7 +78,7 @@ class BookController {
       const newBook = await data.save();
       return res.json({
         message: "Книга успешно создана",
-        book: { ...newBook },
+        book: newBook,
       });
     } catch (err) {
       next(err);
@@ -90,10 +89,10 @@ class BookController {
     try {
       const bookId = req.params.id;
       const { email } = req.cookies;
-      const deletedBook = bookService.delete(bookId, email);
+      const deletedBook = await bookService.delete(bookId, email);
       res.json({
         message: "Книга успешно удалена",
-        book: { ...deletedBook },
+        book: deletedBook,
       });
     } catch (err) {
       next(err);

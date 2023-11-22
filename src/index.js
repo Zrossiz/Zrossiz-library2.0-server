@@ -4,9 +4,11 @@ import cors from "cors";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import swaggerUi from "swagger-ui-express";
 
 import router from "./routes/index.js";
 import errorMiddleware from "./middleware/errorMiddleware.js";
+import swaggerConfig from "./docs/index.js";
 
 dotenv.config();
 const app = express();
@@ -19,6 +21,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use("/upload", express.static("src/upload"));
 app.use("/api", router);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerConfig));
 app.use(errorMiddleware);
 
 const start = async () => {
