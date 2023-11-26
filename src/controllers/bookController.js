@@ -27,14 +27,15 @@ class BookController {
 
   async findBooks(req, res, next) {
     try {
-      if (!req.body.title) {
+      const { search } = req.query;
+      if (!search) {
         throw ApiError.BadRequest("Упс, ничего не найдено");
       }
-      const searchRegex = new RegExp(`${req.body.title}`, "i");
+      const searchRegex = new RegExp(`${search}`, "i");
       const searchResults = await bookService.search(searchRegex);
       return res.json({
         length: searchResults.length,
-        data: { ...searchResults },
+        data: searchResults,
       });
     } catch (err) {
       next(err);

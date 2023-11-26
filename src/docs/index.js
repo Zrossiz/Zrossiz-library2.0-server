@@ -1,35 +1,25 @@
+import YAML from "yamljs";
+
+const booksPaths = YAML.load("./src/docs/paths/books.yaml");
+const usersPaths = YAML.load("./src/docs/paths/users.yaml");
+
 export default {
   openapi: "3.0.0",
   info: {
     description:
-      "Служба REST API для library. Используется для получения информации по различным категориям.",
+      "Служба REST API для Library. Используется для получения информации по различным категориям.",
     version: "1.0.0",
-    title: "library REST API",
+    title: "Library REST API",
   },
   docExpansion: "none",
   servers: [
     {
+      url: `${process.env.API_URL}/api`,
       description: "Сервер разработки",
     },
   ],
-  components: {
-    securitySchemes: {
-      bearerAuth: {
-        type: "http",
-        scheme: "bearer",
-        bearerFormat: "JWT",
-      },
-    },
-    responses: {
-      UnauthorizedError: {
-        description: "Нет токена доступа!",
-      },
-    },
+  paths: {
+    ...booksPaths,
+    ...usersPaths,
   },
-  security: [
-    {
-      bearerAuth: [],
-    },
-  ],
-  paths: {},
 };

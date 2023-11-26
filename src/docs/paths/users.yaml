@@ -1,0 +1,11 @@
+/users:
+  get:
+    tags:
+      - Пользователи
+    summary: Получить пользователей
+    description: Получить книги из таблицы books.
+    responses:
+      200:
+        description: Успешный запрос
+      400:
+        description: Произошла ошибка запроса

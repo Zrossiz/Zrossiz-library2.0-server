@@ -1,0 +1,147 @@
+/books:
+  get:
+    tags:
+      - Книги
+    summary: Получить книги
+    description: Получить книги из таблицы books.
+    responses:
+      200:
+        description: Успешный запрос
+      400:
+        description: Произошла ошибка запроса
+/books/{bookId}:
+  get:
+    tags:
+      - Книги
+    summary: Получить книгy
+    description: Получить книгy из таблицы books.
+    parameters:
+      - in: path
+        name: bookId
+        required: true
+        schema:
+          type: string
+        description: ID книги
+    responses:
+      200:
+        description: Успешный запрос
+      400:
+        description: Произошла ошибка запроса
+  delete:
+    tags:
+      - Книги
+    summary: Удалить книгy
+    description: Удалить книгy из таблицы books.
+    parameters:
+      - in: path
+        name: bookId
+        required: true
+        schema:
+          type: string
+        description: ID книги
+    responses:
+      200:
+        description: Успешный запрос
+      400:
+        description: Произошла ошибка запроса
+  put:
+    tags:
+      - Книги
+    summary: Обновить книгу
+    description: Обновить книгу из таблицы books по заголовку.
+    parameters:
+      - in: body
+        name: title
+        required: true
+        schema:
+          type: string
+        description: Заголовок книги
+      - in: body
+        name: description
+        required: true
+        schema:
+          type: string
+        description: Описание книги
+      - in: body
+        name: Authors
+        required: true
+        schema:
+          type: string
+        description: Авторы книги
+      - in: body
+        name: Rating
+        required: true
+        schema:
+          type: string
+        description: Рейтинг книги
+      - in: body
+        name: Filecover
+        required: true
+        schema:
+          type: string
+        description: Обложка книги (ссылка)
+    responses:
+      200:
+        description: Успешный запрос
+      400:
+        description: Произошла ошибка запроса
+/books/search:
+  get:
+    tags:
+      - Книги
+    summary: Найти книги
+    description: Найти книги из таблицы books по заголовку.
+    parameters:
+      - in: query
+        name: search
+        required: true
+        schema:
+          type: string
+        description: Заголовок книги
+    responses:
+      200:
+        description: Успешный запрос
+      400:
+        description: Произошла ошибка запроса
+/books/create:
+  post:
+    tags:
+      - Книги
+    summary: Создать книгу
+    description: Создать книги из таблицы books по заголовку.
+    parameters:
+      - in: body
+        name: title
+        required: true
+        schema:
+          type: string
+        description: Заголовок книги
+      - in: body
+        name: description
+        required: true
+        schema:
+          type: string
+        description: Описание книги
+      - in: body
+        name: Authors
+        required: true
+        schema:
+          type: string
+        description: Авторы книги
+      - in: body
+        name: Rating
+        required: true
+        schema:
+          type: string
+        description: Рейтинг книги
+      - in: body
+        name: Filecover
+        required: true
+        schema:
+          type: string
+        description: Обложка книги (ссылка)
+    responses:
+      200:
+        description: Успешный запрос
+      400:
+        description: Произошла ошибка запроса
